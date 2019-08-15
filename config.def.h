@@ -5,8 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
-static int borderpx = 2;
+static char *font = "Hack:pixelsize=12:antialias=true:autohint=true";
+static int borderpx = 7;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -35,6 +35,7 @@ static float chscale = 1.0;
  * More advanced example: L" `'\"()[]{}"
  */
 wchar_t *worddelimiters = L" ";
+
 
 /* selection timeouts (in milliseconds) */
 static unsigned int doubleclicktimeout = 300;
@@ -95,42 +96,41 @@ unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
 
-	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
+   /* 8 normal colors */
+   [0] = "#263238", /* black   */
+   [1] = "#EC5F67", /* red     */
+   [2] = "#8BD649", /* green   */
+   [3] = "#FFCC00", /* yellow  */
+   [4] = "#89DDFF", /* blue    */
+   [5] = "#82AAFF", /* magenta */
+   [6] = "#80CBC4", /* cyan    */
+   [7] = "#CDD3DE", /* white   */
 
-	[255] = 0,
+   /* 8 bright colors */
+   [8]  = "#707880",  /* black   */
+   [9]  = "#EC5F67",  /* red     */
+   [10] = "#8BD649", /* green   */
+   [11] = "#FFCC00", /* yellow  */
+   [12] = "#89DDFF", /* blue    */
+   [13] = "#82AAFF", /* magenta */
+   [14] = "#80CBC4", /* cyan    */
+   [15] = "#FFFFFF", /* white   */
 
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc",
-	"#555555",
+   /* special colors */
+   [256] = "#263238", /* background */
+   [257] = "#CDD3DE", /* foreground */
+   [258] = "#CDD3DE",     /* cursor */
 };
-
 
 /*
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 7;
+unsigned int defaultfg = 15;
 unsigned int defaultbg = 0;
-static unsigned int defaultcs = 256;
-static unsigned int defaultrcs = 257;
+static unsigned int defaultcs = 15;
+static unsigned int defaultrcs = 15;
 
 /*
  * Default shape of cursor
@@ -199,6 +199,10 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
+	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
+	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
+    { MODKEY,               XK_k,           kscrollup,      {.i =  3} },
+    { MODKEY,               XK_j,           kscrolldown,    {.i =  3} },
 };
 
 /*
